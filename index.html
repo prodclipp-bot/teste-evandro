@@ -33,7 +33,7 @@
         }
         section {
             padding: 40px 20px;
-            max-width: 1000px;
+            max-width: 900px;
             margin: auto;
         }
         .highlight {
@@ -90,6 +90,10 @@
             object-fit: cover;
             border: 4px solid #004aad;
         }
+        /* Ajuste para alinhar verticalmente o texto e a imagem */
+        .presenter:nth-child(2) {
+            align-items: flex-start;
+        }
         @media (min-width: 768px) {
             .presenter {
                 flex-direction: row;
@@ -97,6 +101,7 @@
             }
             .presenter:nth-child(2) {
                 flex-direction: row-reverse;
+                align-items: center;
             }
         }
     </style>
@@ -167,4 +172,3 @@
     </footer>
 </body>
 </html>
-
