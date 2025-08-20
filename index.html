@@ -1,174 +1,199 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Resgate da Família - Workshop Online</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #004aad, #0072ff);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        header p {
-            font-size: 1.2rem;
-        }
-        .banner {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        section {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-        .highlight {
-            color: #004aad;
-            font-weight: bold;
-        }
-        .card {
-            background: white;
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .cta {
-            text-align: center;
-            margin: 40px 0;
-        }
-        .cta a {
-            background: #28a745;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            display: inline-block;
-        }
-        .cta a:hover {
-            background: #218838;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #f1f1f1;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .presenters {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .presenter {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-direction: column;
-            text-align: center;
-        }
-        .presenter img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #004aad;
-        }
-        /* Ajuste para alinhar verticalmente o texto e a imagem */
-        .presenter:nth-child(2) {
-            align-items: flex-start;
-        }
-        @media (min-width: 768px) {
-            .presenter {
-                flex-direction: row;
-                text-align: left;
-            }
-            .presenter:nth-child(2) {
-                flex-direction: row-reverse;
-                align-items: center;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Resgate da Família - Workshop Online</title>
+
+<style>
+  :root{ --hero-blur: 18px; }
+  body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:0; padding:0; background:#f8f9fa; color:#333; line-height:1.6;
+  }
+
+  /* ===== HERO (padrão desktop) ===== */
+  header.header-banner{
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(320px, 52vw, 620px);
+    display: grid; place-items: center;
+    text-align: center; color: #fff;
+    padding: 24px 16px;
+    overflow: hidden;
+    margin: 0; border: 0;
+  }
+  /* Camada de preenchimento com leve blur (DESKTOP) */
+  header.header-banner::before{
+    content:""; position:absolute; inset:0;
+    background: url("casais.png") center 55% / cover no-repeat;
+    filter: blur(var(--hero-blur)) brightness(0.95) saturate(1.05);
+    transform: scale(1.08);
+    z-index:-3;
+  }
+  /* Foto nítida em contain (ninguém cortado) */
+  header.header-banner::after{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.22)),
+      url("casais.png");
+    background-repeat: no-repeat, no-repeat;
+    background-size: auto, contain;
+    background-position: center, center 55%;
+    z-index:-2; pointer-events:none;
+  }
+
+  .hero-content{
+    max-width: min(92vw, 920px);
+    margin-inline: auto;
+  }
+  header.header-banner h1{ font-size: clamp(1.8rem, 6.2vw, 2.6rem); margin: 0 0 10px; }
+  header.header-banner p{ font-size: clamp(1rem, 3.6vw, 1.25rem); margin: 8px 0; }
+
+  /* ===== MOBILE: sem blur, sem bordas, texto realmente centralizado ===== */
+  @media (max-width: 768px){
+    header.header-banner{
+      padding: 0;
+      /* Definimos a mesma proporção da foto para não sobrar faixa */
+      aspect-ratio: 944 / 449;   /* ~2.10:1 – ajustado à sua imagem */
+      min-height: auto; height: auto;
+      display: grid; place-items: center;
+    }
+    /* Remove totalmente a camada de blur */
+    header.header-banner::before{ content: none !important; }
+    /* Usa somente a foto nítida, centrada */
+    header.header-banner::after{
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.06), rgba(0,0,0,.14)),
+        url("casais.png");
+      background-size: auto, contain;
+      background-position: center, center 45%;
+    }
+    :root{ --hero-blur: 0px; }
+
+    /* Texto sem “cartão” e centralizado no meio da imagem */
+    .hero-content{
+      background: none; box-shadow:none; backdrop-filter:none;
+      border-radius: 0; padding: 0 12px; margin: 0;
+    }
+    header.header-banner h1{ font-size: clamp(1.6rem, 7vw, 2.1rem); }
+    header.header-banner p{ font-size: clamp(0.95rem, 3.8vw, 1.1rem); }
+  }
+  @media (max-width: 420px){
+    header.header-banner{ aspect-ratio: 944 / 470; } /* um pouco mais alto p/ focar rostos */
+    header.header-banner::after{ background-position: center, center 42%; }
+  }
+
+  /* ===== Restante da página ===== */
+  section{ padding:40px 20px; max-width:900px; margin:auto; }
+  .highlight{ color:#004aad; font-weight:bold; }
+  .card{
+    background:#fff; margin-bottom:20px; padding:20px; border-radius:8px;
+    box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  }
+  .cta{ text-align:center; margin:40px 0; }
+  .cta a{
+    background:#28a745; color:#fff; padding:15px 30px; text-decoration:none;
+    border-radius:6px; font-size:1.2rem; font-weight:bold; display:inline-block;
+  }
+  .cta a:hover{ background:#218838; }
+  footer{ text-align:center; padding:20px; background:#f1f1f1; font-size:.9rem; color:#666; }
+
+  .presenters{ display:flex; flex-direction:column; gap:20px; }
+  .presenter{ display:flex; align-items:center; gap:20px; flex-direction:column; text-align:center; }
+  .presenter img{
+    width:150px; height:150px; border-radius:50%; object-fit:cover; border:4px solid #004aad;
+  }
+  .presenter:nth-child(2){ align-items:flex-start; }
+  @media (min-width:768px){
+    .presenter{ flex-direction:row; text-align:left; }
+    .presenter:nth-child(2){ flex-direction:row-reverse; align-items:center; }
+    .hero-content{ background:none; box-shadow:none; backdrop-filter:none; padding:0; margin-inline:auto; }
+    .cta { margin-left:10px; margin-right:10px}
+  }
+
+  /* Ovais (mantidos) */
+  :root{ --avatar-oval-width:110px; --avatar-oval-height:158px; }
+  .avatar-oval{
+    width:var(--avatar-oval-width); height:var(--avatar-oval-height);
+    border-radius:50% / 50%; object-fit:cover; object-position:center; display:block;
+    flex:0 0 var(--avatar-oval-width); min-width:var(--avatar-oval-width);
+  }
+  @media (max-width:640px){
+    :root{ --avatar-oval-width:96px; --avatar-oval-height:calc(96px * 158 / 110); }
+    .avatar-oval{ flex:0 0 var(--avatar-oval-width); min-width:var(--avatar-oval-width); }
+  }
+  @media (max-width:420px){
+    :root{ --avatar-oval-width:84px; --avatar-oval-height:calc(84px * 158 / 110); }
+    .avatar-oval{ flex:0 0 var(--avatar-oval-width); min-width:var(--avatar-oval-width); }
+  }
+  @media (max-width:640px){
+    .avatar-oval{ margin-left:auto; margin-right:auto; align-self:center; justify-self:center; }
+  }
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>🌟 O Resgate da Família</h1>
-        <p>3 noites para curar feridas e reconstruir laços</p>
-        <p><strong>7, 8 e 9 de setembro • 19h00 • Online e Gratuito</strong></p>
-    </header>
-
-    <section>
-        <h2>Por que participar?</h2>
-        <p>Muitas vezes, a vida nos afasta do que é mais importante: <span class="highlight">a conexão verdadeira com a nossa família</span>. 
-        Este workshop foi criado para ajudar você a <strong>reconhecer, curar e resgatar</strong> vínculos que podem estar enfraquecidos, 
-        trazendo leveza e esperança para sua história.</p>
-    </section>
-
-    <section>
-        <h2>O que você vai viver em cada noite</h2>
-        <div class="card">
-            <h3>🌌 Noite 1 – O Peso Invisível da Família</h3>
-            <p>Você vai compreender as raízes emocionais que afetam sua vida e sua família, mesmo que estejam escondidas em mágoas antigas ou silêncios não ditos.</p>
-        </div>
-        <div class="card">
-            <h3>💙 Noite 2 – Curando Feridas e Restaurando o Amor</h3>
-            <p>Vamos juntos vivenciar práticas de cura emocional para transformar ressentimentos em aprendizado e abrir espaço para o diálogo e o afeto.</p>
-        </div>
-        <div class="card">
-            <h3>🌱 Noite 3 – Construindo um Novo Começo</h3>
-            <p>Chegou a hora de escrever uma nova história para sua família, com mais conexão, pertencimento e esperança.</p>
-        </div>
-    </section>
-
-    <div class="cta">
-        <p><strong>Garanta sua vaga agora mesmo:</strong></p>
-        <!-- Link atualizado para o grupo de WhatsApp fornecido. -->
-        <a href="https://chat.whatsapp.com/CeXf6hjhBziAzvXl9HGFFp" target="_blank">👉 Quero participar gratuitamente</a>
+  <header class="header-banner">
+    <div class="hero-content">
+      <h1>🌟 O Resgate da Família</h1>
+      <p>3 noites para curar feridas e reconstruir laços</p>
+      <p><strong>7, 8 e 9 de setembro • 19h00 • Online e Gratuito</strong></p>
     </div>
+  </header>
 
-    <section>
-        <h2>Quem vai conduzir</h2>
-        <div class="presenters">
-            <div class="presenter">
-                <!-- A imagem do Evandro agora aponta para o arquivo evandro.jpg -->
-                <img src="evandro.jpg" alt="Foto de Evandro">
-                <div>
-                    <p>Sou <strong>Evandro</strong>, mentor pessoal e empresarial, especialista em neurociência, saúde mental e constelações familiares. Tenho ajudado pessoas e famílias a encontrarem clareza, leveza e cura emocional através da <em>Mentoria O Seu Lugar</em>.</p>
-                </div>
-            </div>
-            <div class="presenter">
-                <!-- A imagem da Alinne agora aponta para o arquivo aline.jpg -->
-                <img src="aline.jpg" alt="Foto de Alinne De Pasinatto">
-                <div>
-                    <p>Sou <strong>Alinne De Pasinatto</strong>. Por muitos anos trabalhei com contabilidade e consultoria de negócios. Mas a vida me levou a um caminho ainda mais profundo: mergulhei em estudos de Psicologia, Psicanálise, Constelação Familiar e Empresarial, Coaching, Meditação, Respiração e Espiritualidade. Hoje, junto da minha experiência profissional e da minha própria história, eu ajudo pessoas a romperem ciclos de dor, curarem feridas emocionais e prosperarem na vida e nos negócios — sem perder a leveza. Sou autora do livro 8 Habilidades de um Líder Extraordinário e criei as mentorias ALANC e The Women Mentoring, que já transformaram a vida de muitas pessoas, principalmente famílias. Este workshop é uma oportunidade única de você viver essa transformação gratuitamente.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section>
+    <h2>Por que participar?</h2>
+    <p>Muitas vezes, a vida nos afasta do que é mais importante: <span class="highlight">a conexão verdadeira com a nossa família</span>.
+    Este workshop foi criado para ajudar você a <strong>reconhecer, curar e resgatar</strong> vínculos que podem estar enfraquecidos,
+    trazendo leveza e esperança para sua história.</p>
+  </section>
 
-    <div class="cta">
-        <!-- Link atualizado para o grupo de WhatsApp fornecido. -->
-        <a href="https://chat.whatsapp.com/CeXf6hjhBziAzvXl9HGFFp" target="_blank">✅ Entrar no grupo e garantir meu acesso</a>
+  <section>
+    <h2>O que você vai viver em cada noite</h2>
+    <div class="card">
+      <h3>🌌 Noite 1 – O Peso Invisível da Família</h3>
+      <p>Você vai compreender as raízes emocionais que afetam sua vida e sua família, mesmo que estejam escondidas em mágoas antigas ou silêncios não ditos.</p>
     </div>
+    <div class="card">
+      <h3>💙 Noite 2 – Curando Feridas e Restaurando o Amor</h3>
+      <p>Vamos juntos vivenciar práticas de cura emocional para transformar ressentimentos em aprendizado e abrir espaço para o diálogo e o afeto.</p>
+    </div>
+    <div class="card">
+      <h3>🌱 Noite 3 – Construindo um Novo Começo</h3>
+      <p>Chegou a hora de escrever uma nova história para sua família, com mais conexão, pertencimento e esperança.</p>
+    </div>
+  </section>
 
-    <footer>
-        <p>© 2025 O Resgate da Família • Todos os direitos reservados</p>
-    </footer>
+  <div class="cta">
+    <p><strong>Garanta sua vaga agora mesmo:</strong></p>
+    <a href="https://chat.whatsapp.com/CeXf6hjhBziAzvXl9HGFFp" target="_blank">👉 Quero participar gratuitamente</a>
+  </div>
+
+  <section>
+    <h2>Quem vai conduzir</h2>
+    <div class="presenters">
+      <div class="presenter">
+        <img class="avatar-oval" src="evandro.jpg" alt="Foto de Evandro">
+        <div>
+          <p>Sou <strong>Evandro</strong>, mentor pessoal e empresarial, especialista em neurociência, saúde mental e constelações familiares. Tenho ajudado pessoas e famílias a encontrarem clareza, leveza e cura emocional através da <em>Mentoria O Seu Lugar</em>.</p>
+        </div>
+      </div>
+      <div class="presenter">
+        <img class="avatar-oval" src="aline.jpg" alt="Foto de Alinne De Pasinatto">
+        <div>
+          <p>Sou <strong>Alinne De Pasinatto</strong>.Sou Alinne De Pasinatto. Por muitos anos trabalhei com contabilidade e consultoria de negócios. Mas a vida me levou a um caminho ainda mais profundo: mergulhei em estudos de Psicologia, Psicanálise, Constelação Familiar e Empresarial, Coaching, Meditação, Respiração e Espiritualidade. Hoje, junto da minha experiência profissional e da minha própria história, eu ajudo pessoas a romperem ciclos de dor, curarem feridas emocionais e prosperarem na vida e nos negócios — sem perder a leveza. Sou autora do livro 8 Habilidades de um Líder Extraordinário e criei as mentorias ALANC e The Women Mentoring, que já transformaram a vida de muitas pessoas, principalmente famílias. Este workshop é uma oportunidade única de você viver essa transformação gratuitamente.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a href="https://chat.whatsapp.com/CeXf6hjhBziAzvXl9HGFFp" target="_blank">✅ Entrar no grupo e garantir meu acesso</a>
+  </div>
+
+  <footer>
+    <p>© 2025 O Resgate da Família • Todos os direitos reservados</p>
+  </footer>
 </body>
 </html>
